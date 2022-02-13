@@ -1,0 +1,77 @@
+﻿@inject IViewLocalizer localizer
+@model FileSharing.Models.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="content mt-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 order-md-2">
+                <img src="~/assets/img/undraw_file_sync_ot38.svg" alt="Image" class="img-fluid lazyload">
+            </div>
+            <div class="col-md-6 contents">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="mb-4">
+                            <h3>@localizer["pagetitle"]</h3>
+                            <p class="mb-4">@localizer["pagedescription"]</p>
+                        </div>
+                        <form asp-action="Register" methode="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group first">
+                                <label asp-for="FirstName"></label>
+                                <input asp-for="FirstName" type="text" class="form-control">
+                                <span asp-validation-for="FirstName" class="text-info"></span>
+                            </div>
+                            <div class="form-group first">
+                                <label asp-for="LastName"></label>
+                                <input asp-for="LastName" type="text" class="form-control">
+                                <span asp-validation-for="LastName" class="text-info"></span>
+                            </div>
+                            <div class="form-group first">
+                                <label asp-for="Email"></label>
+                                <input asp-for="Email" type="email" class="form-control">
+                                <span asp-validation-for="Email" class="text-info"></span>
+                            </div>
+                            <div class="form-group last mb-4">
+                                <label asp-for="Password"></label>
+                                <input asp-for="Password" type="password" class="form-control">
+                                <span asp-validation-for="Password" class="text-info"></span>
+                            </div>
+                            <div class="form-group last mb-4">
+                                <label asp-for="ConfirmPassword"></label>
+                                <input asp-for="ConfirmPassword" type="password" class="form-control">
+                                <span asp-validation-for="ConfirmPassword" class="text-info"></span>
+                            </div>
+                            <input type="submit" value="@localizer["sigup"]" class="btn text-white btn-block btn-primary">
+
+
+
+                            <div class="social-login anotherlogin">
+                                <span class="d-block text-left my-4 text-muted">@localizer["anotherlogin"] </span>
+                                <a asp-action="ExternalLogin" asp-controller="Account" asp-route-Provider="Facebook" class="facebook">
+                                    <span class="icon-facebook mr-3"></span>
+                                </a>
+
+                                <a asp-action="ExternalLogin" asp-controller="Account" asp-route-Provider="Google" class="google">
+                                    <span class="icon-google mr-3"></span>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="Home" class="btn text-white btn-block btn-primary">@localizer["Cancel"]</a>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

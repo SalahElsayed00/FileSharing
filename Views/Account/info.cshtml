@@ -1,0 +1,108 @@
+﻿@model FileSharing.Models.InfoViewModel
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="content mt-4">
+    <div class="container">
+        <div class="row">
+            @if (TempData["Message"] != null)
+            {
+                <div class="alert alert-success text-center">
+                    <strong>@TempData["Message"]</strong>
+                </div>
+            }
+            <div class="col-12 contents">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="mb-4">
+                            <h3 style="text-align: center;color: #009999">information profile</h3>
+                            <p class="mb-4">you can edit your information profile and save changes </p>
+                        </div>
+                        <div asp-validation-summary="ModelOnly" class="text-danger text-center"></div>
+                        <form asp-action="info" methode="post">
+                            <div class="form-group first">
+                                <label asp-for="FirstName"></label>
+                                <input asp-for="FirstName" type="text" class="form-control">
+                                <span asp-validation-for="FirstName" class="text-info"></span>
+                            </div>
+                            <div class="form-group first">
+                                <label asp-for="LastName"></label>
+                                <input asp-for="LastName" type="text" class="form-control">
+                                <span asp-validation-for="LastName" class="text-info"></span>
+                            </div>
+                            <div class="form-group first">
+                                <label asp-for="Email"></label>
+                                <input asp-for="Email" type="email" class="form-control" readonly>
+                                <span asp-validation-for="Email" class="text-info"></span>
+                            </div>
+                            <input type="submit" value="Save Change" class="btn text-white btn-block btn-primary">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="Home" class="btn text-white btn-block btn-primary">Cancel</a>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<div class="container-fluid tm-mt-60">
+    <div class="row mb-4">
+        <h2 class="col-12 tm-text-primary">
+             My Profile
+        </h2>
+    </div>
+    <div class="row tm-mb-74 tm-row-1640">
+        <div class="col-lg-5 col-md-6 col-12 mb-3">
+            <img src="~/assets/img/salah.jpg" alt="Image" class="img-fluid lazyload">
+        </div>
+        <div class="col-lg-7 col-md-6 col-12">
+            <div class="tm-about-img-text">
+                <h2 class="col-12 tm-text-primary">Information</h2>
+                <p class="mb-4">
+                    <span class="col-12 tm-text-primary">User Name</span>: @Model.FirstName @Model.LastName
+                    <br />
+                    <span class="col-12 tm-text-primary">Email</span>: @Model.Email
+
+                </p>
+                <p>
+                    Credits go to Pexels and Unsplash for photos and video used in this template. Catalog-Z is free <a rel="sponsored" href="https://v5.getbootstrap.com/">Bootstrap 5</a> Alpha 2 HTML Template designed for video and photo websites.
+                </p>
+                <p>You are <b>allowed</b> to use this template for your commercial or non-commercial websites. You can integrate it with any kind of CMS website. You are <b>NOT allowed</b> to redistribute the downloadable template ZIP file on any template collection website. Please <a rel="nofollow" href="https://templatemo.com/contact" target="_parent">contact us</a> for more information. Thank you.</p>
+            </div>
+        </div>
+    </div>
+    </div>*@

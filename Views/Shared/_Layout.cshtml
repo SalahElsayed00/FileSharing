@@ -1,0 +1,214 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IViewLocalizer localizer 
+
+@using Microsoft.AspNetCore.Localization;
+
+@{ 
+    var reqCulture = Context.Features.Get<IRequestCultureFeature>();
+    var culture = reqCulture.RequestCulture.Culture.Name;
+    bool isArabic = culture == "ar-SA";
+}
+
+<!DOCTYPE html>
+<html lang = "@(isArabic?"ar":"en")" >
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FileSharing</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css"  />
+    <link href="~/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    @if (isArabic)
+    {
+        <link href="~/assets/css/Arabic.css" rel="stylesheet" asp-append-version="true" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500&display=swap" rel="stylesheet">
+        
+    }
+
+    @*log in*@
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/assets/login/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="~/assets/login/css/owl.carousel.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/assets/login/css/bootstrap.min.css">
+    <!-- Style -->
+    <link rel="stylesheet" href="~/assets/login/css/style.css">
+    @*log in*@
+
+    @*templete*@
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="~/assets/css/templatemo-style.css" asp-append-version="true">
+    @*templete*@
+</head>
+<body dir="@(isArabic?"rtl":"ltr")">
+    <header>
+
+        <div id="loader-wrapper">
+            <div id="loader"></div>
+            <div class="loader-section section-left"></div>
+            <div class="loader-section section-right"></div>
+        </div>
+        <nav class="navbar navbar-expand-md">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="white-space:pre; text-align: center; word-break: break-all;">@localizer["FileSharing"]</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+                    <ul class="navbar-nav flex-grow-1 ml-4 mb-2 mb-lg-0 " style="margin-left: 10.5rem !important;">
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-1 active" aria-current="page" asp-area="" asp-controller="Home" asp-action="Index">@localizer["Home"]</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-1" asp-area="" asp-controller="Home" asp-action="Privacy">@localizer["Privacy"]</a>
+                        </li>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+
+                                <a class="nav-link nav-link-1" asp-area="" asp-controller="Upload" asp-action="Index">@localizer["Upload"]</a>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-1" asp-area="" asp-controller="Upload" asp-action="Browse">@localizer["Browse"]</a>
+                        </li>
+                        <li class="nav-item">
+
+                            <a class="nav-link nav-link-1" asp-area="" asp-controller="About" asp-action="Index">@localizer["About"]</a>
+                        </li>
+                        <li class="nav-item">
+
+                            <a class="nav-link nav-link-1" asp-area="" asp-controller="Contact" asp-action="Index">@localizer["Contact"]</a>
+                        </li>
+                        
+                    </ul>
+                    <ul class="navbar-nav flex-grow-1 ml-auto mb-2 mb-lg-0 align-right">
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-1 " asp-area="" asp-controller="Account" asp-action="info">@User.Identity.Name</a>
+                        </li>
+                            <li class="nav-item dropdown ">
+                                <a class="dropdown-toggle nav-link nav-link-1" role="button" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="nav-link nav-link-1" asp-area="" asp-controller="Account" asp-action="info">@localizer["info"]</a>
+                                    <a class="nav-link nav-link-1 " asp-area="" asp-controller="Account" asp-action="Changepassword">@localizer["changepasword"]</a>
+                                    @if (User.IsInRole(UserRoles.Admin))
+                                    {
+                                        <a class="nav-link nav-link-1 " asp-area="Admin" asp-controller="Home" asp-action="Index">Dashboard</a>
+                                    }
+                                    <a class="nav-link nav-link-1 " asp-area="" asp-controller="Account" asp-action="LogOut">@localizer["LogOut"]</a>
+
+                                </div>
+                            </li>
+                            }
+                            else
+                            {
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-1 " asp-area="" asp-controller="Account" asp-action="Login">@localizer["Login"]</a>
+
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-1 " asp-area="" asp-controller="Account" asp-action="Register">@localizer["Register"]</a>
+                            </li>
+                            }
+                        </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container" style="margin-bottom:220px!important">
+        <main role="main" class="pb-3">
+            @if (TempData["Messagepassword"] != null)
+            {
+                <div class="alert alert-success text-center mt-3">
+                    <strong>@TempData["Messagepassword"]</strong>
+                </div>
+            }
+            
+                @RenderBody()
+     
+        </main>
+    </div>
+
+    <footer class="tm-bg-gray pt-5 pb-3 tm-text-gray tm-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-12 col-12 px-5 mb-5">
+                    <h3 class="tm-text-primary mb-4 FooterAbout tm-footer-title">@localizer["FooterAbout"]</h3>
+                    <p>@localizer["Footerinfo"]</p>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12 px-5 mb-5">
+                    <h3 class="tm-text-primary mb-4 tm-footer-title">@localizer["FooterLinks"]</h3>
+                    <ul class="tm-footer-links pl-0">
+                        <li><a asp-action="Index" asp-controller="Home">@localizer["Home"]</a></li>
+                        <li><a asp-action="Index" asp-controller="Upload"> @localizer["Upload"]</a></li>
+                        <li><a asp-action="Browse" asp-controller="Upload">@localizer["Browse"]</a></li>
+                        <li><a asp-action="Index" asp-controller="Contact">@localizer["Contact"]</a></li>
+                        <li><a asp-action="Index" asp-controller="About">@localizer["About"]</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12 px-5 mb-5">
+                    <h3 class="tm-text-primary mb-4 tm-footer-title">@localizer["Language"]</h3>
+                    <ul class="tm-footer-links pl-0">
+                        <li><a href="/Home/SetCulture?Lang=ar-SA&ReturnUrl=@Context.Request.Path.Value">العربية</a></li>
+                        <li><a href="/Home/SetCulture?Lang=en-US&ReturnUrl=@Context.Request.Path.Value">English</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 col-sm-6 col-12 px-5 mb-5">
+                    <ul class="tm-social-links d-flex justify-content-end pl-0 mb-5">
+                        <li class="mb-2"><a href="https://facebook.com"><i class="fab fa-facebook"></i></a></li>
+                        <li class="mb-2"><a href="https://twitter.com"><i class="fab fa-twitter"></i></a></li>
+                        <li class="mb-2"><a href="https://instagram.com"><i class="fab fa-instagram"></i></a></li>
+                        <li class="mb-2"><a href="https://pinterest.com"><i class="fab fa-pinterest"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-md-7 col-12 px-5 mb-3">
+                    Copyright &copy; 2021 - FileSharing. All rights reserved.
+                </div>
+                <div class="col-lg-4 col-md-5 col-12 px-5 text-right">
+                    @localizer["Designedby"] <a href="https://facebook.com" class="tm-text-gray" rel="sponsored" target="_parent">Salah Elsayed Salah</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    @*main file*@
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @* templets js*@
+    <script src="~/assets/login/js/jquery-3.3.1.min.js"></script>
+    <script src="~/assets/login/js/popper.min.js"></script>
+    <script src="~/assets/login/js/bootstrap.min.js"></script>
+    <script src="~/assets/login/js/main.js"></script>
+    @*login js*@
+    <script src="~/assets/js/plugins.js"></script>
+    @*lazy load*@
+    <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
+    <script>
+        $(window).on("load", function () {
+            $('body').addClass('loaded');
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            lazyload();
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+    
+</body>
+</html>

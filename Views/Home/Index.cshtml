@@ -1,0 +1,58 @@
+﻿@inject IViewLocalizer localizer
+
+@model IEnumerable<UploadViewModel>
+@{
+    ViewData["Title"] = "Home Page";
+    var ImageContentType = new[] { "image/png", "image/jpg", "image/jpeg" };
+}
+<div class="text-center">
+    <h1 class="display-4 mt-5" style="color: #009999;border-radius:50px 10px 50px 10px  !important">@localizer["Search"] <i style="color: #000000" class="bi bi-search"></i> @localizer["File"]</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 mt-5 img">
+                <img class="tm-hero d-flex justify-content-center lazyload align-items-center" style="height:100%!important" data-parallax="scroll" data-image-src="assets/img/Searchs_130.png">
+                    <form class="d-flex tm-search-form" asp-action="Results" asp-controller="Upload" method="post" style="padding-left: 395px; margin-top: -66px; margin-bottom: 17px;">
+                        <input class="form-control tm-search-input" type="text" name="Term" placeholder="@localizer["Searchholder"]" aria-describedby="button-addon2" aria-label="Search">
+                        <button class="btn btn-outline-success tm-search-btn" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                </img>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+    <div class="col-md-12 " style="margin-top:50px">
+        <h2 style="text-align: center;color: #009999">@localizer["popular"]</h2>
+
+        <table class="table mt-4" style="margin-top:20px">
+           
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+
+                            @if (ImageContentType.Contains(item.ContentType))
+                            {
+                                <a asp-action="Browse" asp-controller="Upload"><img data-src="/Uploads/@item.FileName" width="80" height="80" class="img-thumbnail lazyload" alt="Alternate Text" /></a>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OriginalName)
+                        </td>
+                        
+                        <td>
+                           @localizer["Downloads"] : @Html.DisplayFor(modelItem => item.DownloadCount)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>

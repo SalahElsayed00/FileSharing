@@ -1,0 +1,35 @@
+﻿body {
+    font-family: 'El Messiri', sans-serif !important;
+}
+.tm-search-btn {
+direction:rtl !important;
+}
+.FooterAbout
+{
+    margin-left:300px !important;
+}
+
+
+.forget {
+    position: relative !important;
+    top: 2px;
+    right: 213px;
+}
+.anotherlogin {
+
+margin-left:125px !important;
+}
+
+.img {
+    background-image: url("~/img/img-03.jpg") !important;
+    
+}
+
+
+.navbar-nav.flex-grow-1.ml-4.mb-2.mb-lg-0 {
+    padding-right: 167px !important;
+}
+.img-fluid {
+    height: 300px !important;
+    width: 423px !important;
+}

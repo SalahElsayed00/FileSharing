@@ -1,0 +1,75 @@
+﻿@inject IViewLocalizer localizer
+@model FileSharing.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+
+<div class="content mt-4">
+    <div class="container">
+        <div class="row">
+           @if (TempData["Error"] != null)
+           {
+               <div class="alert alert-danger text-center">@TempData["Error"]</div>
+           }
+            <div class="col-md-6 order-md-2">
+                <img src="~/assets/img/undraw_file_sync_ot38.svg" alt="Image" class="img-fluid lazyload">
+            </div>
+            <div class="col-md-6 contents">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="mb-4 pagetitle">
+                            <h3>@localizer["pagetitle"] </h3>
+                            <p class="mb-4">@localizer["pagedescription"]</p>
+                        </div>
+                        <form asp-action="Login" methode="post" asp-route-ReturnUrl="@Context.Request.Query["ReturnUrl"]">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group first">
+                                <label asp-for="Email"></label>
+                                <input asp-for="Email" type="email" class="form-control">
+                                <span asp-validation-for="Email" class="text-info"></span>
+                            </div>
+                            <div class="form-group last mb-4">
+                                <label asp-for="Password"></label>
+                                <input asp-for="Password" type="password" class="form-control">
+                                <span asp-validation-for="Password" class="text-info"></span>
+                            </div>
+                            <div class="d-flex mb-5 align-items-center">
+                                <label class="control control--checkbox mb-0">
+                                    <input asp-for="RememberMe" type="checkbox" checked="checked" /> <span>@localizer["RememberMe"]</span>
+                                    <div class="control__indicator"></div>
+                                </label>
+                                <span class="ml-auto"><a href="#" class="forgot-pass forget">@localizer["ForgetPassword"]</a></span>
+                            </div>
+                            @* value="@localizer["Rememberme"]"*@
+                            <input type="submit" value="@localizer["submit"]" class="btn text-white btn-block btn-primary">
+
+
+                            <div class="social-login anotherlogin">
+                                <span class="d-block text-left my-4 text-muted">@localizer["anotherlogin"] </span>
+                                <a asp-action="ExternalLogin" asp-controller="Account" asp-route-Provider="Facebook" class="facebook">
+                                    <span class="icon-facebook mr-3"></span>
+                                </a>
+
+                                <a asp-action="ExternalLogin" asp-controller="Account" asp-route-Provider="Google" class="google">
+                                    <span class="icon-google mr-3"></span>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="Home" class="btn text-white btn-block btn-primary">@localizer["Cancel"]</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

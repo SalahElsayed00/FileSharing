@@ -1,0 +1,40 @@
+﻿@model FileSharing.Models.InputUpload
+
+@{
+    ViewData["Title"] = "Upload File";
+}
+
+<h1 style="color: #009999;">Upload new File</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <input asp-for="File" type="file" onchange="chooseFile()" id="customFile" class="custom-file-input" >
+                    <label asp-for="File" class="custom-file-label" id="custom-file-label" for="customFile">Choose File</label>
+                    <span asp-validation-for="File" class="text-danger"></span>
+                </div>
+                <input type="submit" value="Upload" class="btn btn-outline-primary" /> | 
+                <a asp-action="Index" class="btn btn-outline-success">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        
+        <script>
+            function chooseFile() {
+                var ele = document.getElementById('customFile');
+                var name = ele.files.length > 0 ? ele.files[0].name : 'choose File';
+                document.getElementById('custom-file-label').innerText = name;
+            }
+
+        </script>
+        }
+}

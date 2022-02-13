@@ -1,0 +1,34 @@
+﻿@model FileSharing.Data.Upload
+
+@{
+    ViewData["Title"] = "Delete";
+
+}
+<hr />
+<h1 class="align-items-center" style="text-align: center !important; color: #009999 !important ">Delete <i class="bi bi-trash"></i></h1>
+<hr />
+
+<h3>Are you sure you want to delete this?</h3>
+<hr />
+<div class="container">
+    <div class="row">
+
+        <div class="card mb-3">
+            @if (Model.ContentType.ToLower().StartsWith("image"))
+            {
+                <img data-src="/Uploads/@Model.FileName" width="300px" height="300px" class="card-img lazyload" alt="picture">
+            }
+        <div class="card-body">
+            <h5 class="card-title">@Model.OriginalFileName</h5>
+            <p class="card-text">@Model.ContentType</p>
+            <p class="card-text"><small class="text-muted">@Model.UploadDate</small></p>
+            <p class="card-text"><small class="text-muted">@Model.Size</small></p>
+            <form asp-action="Delete">
+                <input type="submit" value="Delete" class="btn btn-outline-danger"  /> |
+                <a asp-action="Index" class="btn btn-outline-info">Cancle <i class="bi bi-x"></i></a>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
+

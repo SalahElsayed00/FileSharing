@@ -1,0 +1,44 @@
+﻿@model IEnumerable<FileSharing.Areas.Admin.Models.AdminUserViewModel>
+@{
+    ViewData["Title"] = "Users Page";
+}
+
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card card-solid">
+        <div class="card-body pb-0">
+            <div class="card-header">
+                <div class="container-fluid">
+                    <h2 class="text-center display-4">Search</h2>
+                    <a class="btn btn-outline-info" asp-action="ExportToExel" asp-controller="User" asp-area="Admin"> Export To Excel </a>
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2">
+                            <form asp-action="Search" asp-controller="User" asp-area="Admin" method="post">
+                                <div class="input-group">
+                                    <input type="search" name="Term" class="form-control form-control-lg" placeholder="Type The Name or Email User">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-lg btn-default">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                <partial name="_UserCard" model="item"/>
+                }
+            </div>
+        </div>
+    </div>
+    <!-- /.card -->
+</section>
+<!-- /.content -->
+
